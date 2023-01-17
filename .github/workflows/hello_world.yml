@@ -16,6 +16,9 @@ jobs:
       - name: hello world
         run: echo "hello world"
         shell: bash
+        
+      - name: Branch name
+        run: echo Running on branch ${GITHUB_REF##*/}
 
   goodbye:
     runs-on: ubuntu-latest
