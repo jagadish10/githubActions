@@ -36,6 +36,9 @@ jobs:
           echo Running on branch ${{ github.ref_name }}
           echo now environment is $ENVIRONMENT
         
+      - name: now the env is
+        run: echo now environment is $ENVIRONMENT
+        
 
   goodbye:
     runs-on: ubuntu-latest
