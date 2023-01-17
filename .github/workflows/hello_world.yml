@@ -28,7 +28,7 @@ jobs:
         run: echo Running on branch ${GITHUB_REF##*/}
         
       - name: Branch name ref_name
-        run: echo Running on branch ${github.ref_name}
+        run: echo Running on branch ${{ github.ref_name }}
         
 
   goodbye:
