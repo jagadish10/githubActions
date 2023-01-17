@@ -2,10 +2,19 @@ name: Hello world workflow
 on:
   push:
     branches:
-      - main
+      - 'master'
+    tags:
+      - "dev/**"
+      - "uat/**"
+      - "release/**"
   pull_request:
     branches:
-      - main
+      - 'master'
+  create:
+    tags:
+      - "dev/**"
+      - "uat/**"
+      - "release/**"
   workflow_dispatch:
 
 env:
