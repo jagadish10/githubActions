@@ -30,7 +30,7 @@ jobs:
       - name: Branch name ref_name
         if: ${{ github.ref_name == 'main' }}
         run: |
-          echo "{ENVIRONMENT}={AuthorSideCharges-Web-V1-UAT}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=AuthorSideCharges-Web-V1-UAT" >> $GITHUB_ENV
           echo now environment is $ENVIRONMENT
         
       - name: now the env is
