@@ -8,6 +8,13 @@ on:
       - main
   workflow_dispatch:
 
+env:
+ AWS_REGION: eu-west-1
+ APPLICATION_NAME: AuthorSideCharges-Web-V1
+ APP_NAME: authorsidecharges-web-v1 
+ HOST_PORT: 8200
+ CONTAINER_PORT: 3000
+
 jobs:
   hello:
     runs-on: ubuntu-latest
@@ -19,6 +26,10 @@ jobs:
         
       - name: Branch name
         run: echo Running on branch ${GITHUB_REF##*/}
+        
+      - name: Branch name ref_name
+        run: echo Running on branch ${github.ref_name}
+        
 
   goodbye:
     runs-on: ubuntu-latest
