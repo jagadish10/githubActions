@@ -50,11 +50,11 @@ jobs:
         run: echo "ENVIRONMENT=AuthorSideCharges-Web-V1-Prod" >> $GITHUB_ENV
       
       - name: if it is uat set build env as uat
-        if: ${{ ENVIRONMENT == AuthorSideCharges-Web-V1-UAT }}
+        if: ${{ env.ENVIRONMENT == AuthorSideCharges-Web-V1-UAT }}
         run: echo "BUILD_ENV=uat" >> $GITHUB_ENV
         
       - name: if it is uat set build env as uat
-        if: ${{ ENVIRONMENT == AuthorSideCharges-Web-V1-Prod }}
+        if: ${{ env.ENVIRONMENT == AuthorSideCharges-Web-V1-Prod }}
         run: echo "BUILD_ENV=prod" >> $GITHUB_ENV
         
       - name: now the env and build env is
