@@ -31,7 +31,7 @@ jobs:
       - name: Branch name ref_name
         if: ${{ github.ref_name == 'main' }}
         run: |
-          echo "::set-env name=:ENVIRONMENT:UAT"
+          echo "::set-env name=ENVIRONMENT::UAT"
           echo now environment is $ENVIRONMENT
         
       - name: now the env is
