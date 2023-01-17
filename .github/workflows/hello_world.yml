@@ -21,6 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: goodbye world
-        run: echo "goodbye world"
+        run: echo ${GITHUB_REF##*/}
         shell: bash
 
