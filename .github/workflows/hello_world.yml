@@ -41,21 +41,16 @@ jobs:
       - name: before the env is
         run: echo now environment is $ENVIRONMENT
         
-      - name: Check for UAT
-        if: ${{ github.ref_name == 'main' || startsWith(github.ref, 'refs/tags/uat') }}
-        run: echo "ENVIRONMENT=AuthorSideCharges-Web-V1-UAT" >> $GITHUB_ENV
-        
-      - name: check for prod
-        if: startsWith(github.ref, 'refs/tags/release')
-        run: echo "ENVIRONMENT=AuthorSideCharges-Web-V1-Prod" >> $GITHUB_ENV
-      
-      - name: if it is uat set build env as uat
-        if: ${{ env.ENVIRONMENT == 'AuthorSideCharges-Web-V1-UAT' }}
-        run: echo "BUILD_ENV=uat" >> $GITHUB_ENV
-        
-      - name: if it is uat set build env as uat
-        if: ${{ env.ENVIRONMENT == 'AuthorSideCharges-Web-V1-Prod' }}
-        run: echo "BUILD_ENV=prod" >> $GITHUB_ENV
+      - name: Checking the build environmnet
+        if: |
+          ${{ github.ref_name == 'main' || startsWith(github.ref, 'refs/tags/uat') }}
+          run: echo "ENVIRONMENT=AuthorSideCharges-Web-V1-UAT" >> $GITHUB_ENV
+          startsWith(github.ref, 'refs/tags/release')
+          echo "ENVIRONMENT=AuthorSideCharges-Web-V1-Prod" >> $GITHUB_ENV
+          ${{ env.ENVIRONMENT == 'AuthorSideCharges-Web-V1-UAT' }}
+          run: echo "BUILD_ENV=uat" >> $GITHUB_ENV
+          ${{ env.ENVIRONMENT == 'AuthorSideCharges-Web-V1-Prod' }}
+          run: echo "BUILD_ENV=prod" >> $GITHUB_ENV
         
       - name: now the env and build env is
         run: |
