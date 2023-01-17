@@ -40,11 +40,10 @@ jobs:
       - name: before the env is
         run: echo now environment is $ENVIRONMENT
         
-      - name: Branch name ref_name
+      - name: Check for UAT
         if: ${{ github.ref_name == 'main' || startsWith(github.ref, 'refs/tags/uat') }}
         run: |
           echo "ENVIRONMENT=AuthorSideCharges-Web-V1-UAT" >> $GITHUB_ENV
-          echo now environment is $ENVIRONMENT
         
       - name: check for prod
         if: startsWith(github.ref, 'refs/tags/release')
