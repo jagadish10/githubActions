@@ -64,7 +64,7 @@ jobs:
           echo now environment is $BUILD_ENV
           
       - name: what is the type
-        run: echo ${{type}}
+        run: echo ${{github.type}}
           
         
 
