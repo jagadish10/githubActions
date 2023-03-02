@@ -18,6 +18,10 @@ on:
       - "uat/**"
       - "release/**"
   workflow_dispatch:
+    inputs:
+      url:
+        description: Please provide the confluence url here
+        required: true
 
 env:
  AWS_REGION: eu-west-1
