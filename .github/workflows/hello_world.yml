@@ -31,6 +31,7 @@ env:
  BUILD_ENV: dev
  HOST_PORT: 8200
  CONTAINER_PORT: 3000
+ PAGE_ID: 123
 
 jobs:
   hello:
@@ -43,6 +44,11 @@ jobs:
         
       - name: Branch name
         run: echo Running on branch ${GITHUB_REF##*/}
+      
+      - name: Extract the page id from url
+        run: |
+          echo "PAGE_ID=${{github.event.inputs.environment}} | sed 's/.*\/\([0-9]*\)\/.*/\1/'""  >> $GITHUB_ENV
+          echo "${{env.PAGE_ID}}"
       
       - name: before the env is
         run: echo now environment is $ENVIRONMENT
@@ -67,6 +73,7 @@ jobs:
         run: |
           echo now environment is $ENVIRONMENT
           echo now environment is $BUILD_ENV
+          echo "${{env.PAGE_ID}}"
           
       - name: what is the type
         run: echo ${{github.event_name}}
