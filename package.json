@@ -1,0 +1,26 @@
+{
+  "name": "githubactions",
+  "version": "1.0.0",
+  "description": "this is just for practice",
+  "main": "test.js",
+  "scripts": {
+    "test": "nyc --reporter=lcov --reporter=text _mocha tests/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jagadish10/githubActions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jagadish10/githubActions/issues"
+  },
+  "homepage": "https://github.com/jagadish10/githubActions#readme",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
+    "nyc": "^15.1.0"
+  }
+}
