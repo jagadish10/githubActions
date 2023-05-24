@@ -1,0 +1,87 @@
+name: trigger-sonar-test
+  pull_request:
+    types:
+      - closed
+
+  workflow_dispatch:
+    inputs:
+        choice:
+          type: choice
+          description: Do you want to run this workflow?
+          required: true
+          options:
+          - true
+          - false
+
+jobs:
+  sonar-submission-renderer-service:
+    name: Trigger sonar for test
+    runs-on:  [self-hosted, linux, APPE, EUW1]
+    if: ${{ github.event.inputs.choice == 'true'}}
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node Js version as ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install The Dependencies 
+        run: npm install
+          
+      - name: Run unit tests  
+        run: npm test
+
+      - name: Increase the project version by one
+        run: |
+          export SONAR_PROJECT_KEY=jagadish10_githubActions
+          export SONAR_AUTH_TOKEN=c2bd82577c98f8f1b32c1afc33ba9260138a37cd
+          sh ./.github/scripts/sonar.sh
+
+      - name: Sonar cloud analysis 
+        run: |
+          sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
+          docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
+          chmod 777 -R /home/ubuntu/actions-runner/_work/githubActions
+
+  if_merged:
+    name: increase the project version in sonar and analyze
+    if: github.event.pull_request.merged == true
+    strategy:
+      matrix:
+        node-version: [14.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node Js version as ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install The Dependencies 
+        run: npm install
+          
+      - name: Run unit tests  
+        run: npm test
+      
+      - name: Increase the project version by one
+        run: |
+          export SONAR_PROJECT_KEY=jagadish10_githubActions
+          export SONAR_AUTH_TOKEN=c2bd82577c98f8f1b32c1afc33ba9260138a37cd
+          sh ./.github/scripts/sonar.sh
+
+      - name: Sonar cloud analysis 
+        run: |
+          sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
+          docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
+          chmod 777 -R /home/ubuntu/actions-runner/_work/githubActions
+    
