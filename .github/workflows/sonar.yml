@@ -14,9 +14,9 @@ on:
           - false
 
 jobs:
-  sonar-submission-renderer-service:
+  sonar-trigger-dispatch:
     name: Trigger sonar for test
-    runs-on:  [self-hosted, linux, APPE, EUW1]
+    runs-on: ubuntu-latest
     if: ${{ github.event.inputs.choice == 'true'}}
     strategy:
       matrix:
