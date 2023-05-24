@@ -1,7 +1,7 @@
 #!/bin/bash
 # set your SonarCloud project key and authentication token
 # get the current version of the project
-CURRENT_VERSION=$(curl -s -u "${SONAR_AUTH_TOKEN}:" "https://sonarcloud.io/api/project_analyses/search?project=${SONAR_PROJECT_KEY}&ps=1" | jq -r '.analyses[0].version')
+CURRENT_VERSION=$(curl -s -u "${SONAR_AUTH_TOKEN}:" "https://sonarcloud.io/api/project_analyses/search?project=${SONAR_PROJECT_KEY}&ps=1" | jq -r '.analyses[0].projectVersion')
 echo $CURRENT_VERSION
 
 # increment the project version number
