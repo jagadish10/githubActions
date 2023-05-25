@@ -49,18 +49,20 @@ jobs:
           echo $CURRENT_VERSION
           INCREMENT_NUMBER=0.0.1
           # NEW_VERSION=$(echo "$CURRENT_VERSION + $INCREMENT_NUMBER" | bc)
-          # echo $NEW_VERSION
-          version1_major=$(echo "$CURRENT_VERSION" | cut -d '.' -f 1)
-          version1_minor=$(echo "$CURRENT_VERSION" | cut -d '.' -f 2)
-          version2_major=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 1)
-          version2_minor=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 2)
+          NEW_VERSION=$(echo ${CURRENT_VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
 
-          # Perform addition using bc
-          result_major=$(echo "$version1_major + $version2_major" | bc)
-          result_minor=$(echo "$version1_minor + $version2_minor" | bc)
+          echo $NEW_VERSION
+          # version1_major=$(echo "$CURRENT_VERSION" | cut -d '.' -f 1)
+          # version1_minor=$(echo "$CURRENT_VERSION" | cut -d '.' -f 2)
+          # version2_major=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 1)
+          # version2_minor=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 2)
 
-          # Print the result
-          echo "Result: $result_major.$result_minor"
+          # # Perform addition using bc
+          # result_major=$(echo "$version1_major + $version2_major" | bc)
+          # result_minor=$(echo "$version1_minor + $version2_minor" | bc)
+
+          # # Print the result
+          # echo "Result: $result_major.$result_minor"
 
       - name: Sonar cloud analysis 
         run: |
