@@ -48,8 +48,19 @@ jobs:
           CURRENT_VERSION=$(curl -s -u "c2bd82577c98f8f1b32c1afc33ba9260138a37cd:" "https://sonarcloud.io/api/project_analyses/search?project=jagadish10_githubActions&pageSize=1" | jq -r '.analyses[0].projectVersion')
           echo $CURRENT_VERSION
           INCREMENT_NUMBER=0.0.1
-          NEW_VERSION=$(echo "$CURRENT_VERSION + $INCREMENT_NUMBER" | bc)
-          echo $NEW_VERSION
+          # NEW_VERSION=$(echo "$CURRENT_VERSION + $INCREMENT_NUMBER" | bc)
+          # echo $NEW_VERSION
+          version1_major=$(echo "$CURRENT_VERSION" | cut -d '.' -f 1)
+          version1_minor=$(echo "$CURRENT_VERSION" | cut -d '.' -f 2)
+          version2_major=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 1)
+          version2_minor=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 2)
+
+          # Perform addition using bc
+          result_major=$(echo "$version1_major + $version2_major" | bc)
+          result_minor=$(echo "$version1_minor + $version2_minor" | bc)
+
+          # Print the result
+          echo "Result: $result_major.$result_minor"
 
       - name: Sonar cloud analysis 
         run: |
