@@ -42,9 +42,6 @@ jobs:
 
       - name: Increase the project version by one
         run: |
-          # export SONAR_PROJECT_KEY=jagadish10_githubActions
-          # export SONAR_AUTH_TOKEN=c2bd82577c98f8f1b32c1afc33ba9260138a37cd
-          # sh ./.github/scripts/sonar.sh
           CURRENT_VERSION=$(curl -s -u "c2bd82577c98f8f1b32c1afc33ba9260138a37cd:" "https://sonarcloud.io/api/project_analyses/search?project=jagadish10_githubActions&pageSize=1" | jq -r '.analyses[0].projectVersion')
           echo $CURRENT_VERSION
           UPDATED_VERSION=$(echo ${CURRENT_VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
@@ -54,8 +51,8 @@ jobs:
       - name: Sonar cloud analysis 
         run: |
           echo "new version ---> ${{env.NEW_VERSION}}"
-          # sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
-          # docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli -Dsonar.projectVersion=1.0.1
+          sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
+          docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli -Dsonar.projectVersion=${{env.NEW_VERSION}}
       # - name: SonarCloud Scan
       #   uses: SonarSource/sonarcloud-github-action@master
       #   with:
