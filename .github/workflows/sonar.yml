@@ -12,8 +12,8 @@ on:
           options:
           - true
           - false
-
-
+env:
+  NEW_VERSION: ''
 
 jobs:
   sonar-trigger-dispatch:
@@ -31,14 +31,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # - name: Install The Dependencies 
-      #   run: npm install
+      - name: Install The Dependencies 
+        run: npm install
 
       - name: Install jq
         run: sudo apt-get install -y jq
           
-      # - name: Run unit tests  
-      #   run: npm test
+      - name: Run unit tests  
+        run: npm test
 
       - name: Increase the project version by one
         run: |
@@ -47,30 +47,15 @@ jobs:
           # sh ./.github/scripts/sonar.sh
           CURRENT_VERSION=$(curl -s -u "c2bd82577c98f8f1b32c1afc33ba9260138a37cd:" "https://sonarcloud.io/api/project_analyses/search?project=jagadish10_githubActions&pageSize=1" | jq -r '.analyses[0].projectVersion')
           echo $CURRENT_VERSION
-          INCREMENT_NUMBER=0.0.1
-          # NEW_VERSION=$(echo "$CURRENT_VERSION + $INCREMENT_NUMBER" | bc)
-          NEW_VERSION=$(echo ${CURRENT_VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
-
-          echo $NEW_VERSION
-          # version1_major=$(echo "$CURRENT_VERSION" | cut -d '.' -f 1)
-          # version1_minor=$(echo "$CURRENT_VERSION" | cut -d '.' -f 2)
-          # version2_major=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 1)
-          # version2_minor=$(echo "$INCREMENT_NUMBER" | cut -d '.' -f 2)
-
-          # # Perform addition using bc
-          # result_major=$(echo "$version1_major + $version2_major" | bc)
-          # result_minor=$(echo "$version1_minor + $version2_minor" | bc)
-
-          # # Print the result
-          # echo "Result: $result_major.$result_minor"
+          UPDATED_VERSION=$(echo ${CURRENT_VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+          echo $UPDATED_VERSION
+          echo "NEW_VERSION=$UPDATED_VERSION" >> $GITHUB_ENV
 
       - name: Sonar cloud analysis 
         run: |
-
+          echo "new version ---> ${{env.NEW_VERSION}}"
           # sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
           # docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli -Dsonar.projectVersion=1.0.1
-          # chmod 777 -R /home/ubuntu/actions-runner/_work/sonar-trigger-dispatch
-
       # - name: SonarCloud Scan
       #   uses: SonarSource/sonarcloud-github-action@master
       #   with:
