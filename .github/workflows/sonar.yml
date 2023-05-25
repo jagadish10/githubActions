@@ -48,7 +48,7 @@ jobs:
         run: |
           sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
           docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
-          chmod 777 -R /home/ubuntu/actions-runner/_work/githubActions
+          chmod 777 -R /home/ubuntu/actions-runner/_work/trigger-sonar-test
 
   if_merged:
     name: increase the project version in sonar and analyze
@@ -86,5 +86,5 @@ jobs:
         run: |
           sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
           docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
-          chmod 777 -R /home/ubuntu/actions-runner/_work/githubActions
+          chmod 777 -R /home/ubuntu/actions-runner/_work/trigger-sonar-test
     
