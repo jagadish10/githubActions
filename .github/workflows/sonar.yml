@@ -36,6 +36,11 @@ jobs:
           
       - name: Run unit tests  
         run: npm test
+      
+      - name: Current version
+        run: |
+          CURRENT_VERSION=$(curl -s -u "${{secrets.SONAR_TOKEN }}:" "https://sonarcloud.io/api/project_analyses/search?project=jagadish10_githubActions&pageSize=1" | jq -r '.analyses[0].projectVersion')
+          echo $CURRENT_VERSION
 
       - name: Sonar cloud analysis 
         run: |
