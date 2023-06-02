@@ -46,14 +46,16 @@ jobs:
         run: |
           sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
           docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
-      # - name: SonarCloud Scan
-      #   uses: SonarSource/sonarcloud-github-action@master
-      #   with:
-      #     args: >
-      #       -Dsonar.projectVersion=1.0.2
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        #   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+          
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectVersion=1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   if_merged:
     name: increase the project version in sonar and analyze
