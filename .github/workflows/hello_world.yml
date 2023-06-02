@@ -2,38 +2,25 @@ name: Hello world workflow
 on:
   push:
     branches:
-      - 'master'
       - 'main'
   pull_request:
     branches:
-      - 'master'
       - 'main'
   create:
     tags:
       - "dev/**"
       - "uat/**"
       - "release/**"
-  workflow_dispatch:
-    inputs:
-      url:
-        description: Please provide the confluence url here
-        required: true
 
 jobs:
   hello:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: hello world
-        run: echo "hello world"
-        shell: bash
         
       - name: Branch name
         run: echo Running on branch ${GITHUB_REF##*/}
           
-      - name: what is the type
-        run: echo ${{github.event_name}}
-      
       - name: Install dependencies
         run: npm install
     
@@ -41,6 +28,7 @@ jobs:
         run: npm run test
 
       - name: SonarCloud Scan
+        if: ${{ github.event_name == 'pull_request' }}
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any

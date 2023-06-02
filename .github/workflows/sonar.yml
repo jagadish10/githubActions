@@ -79,7 +79,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectVersion=1.0.2
+            -Dsonar.projectVersion=${{env.NEW_VERSION}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
