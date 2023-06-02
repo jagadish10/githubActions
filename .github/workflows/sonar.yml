@@ -36,24 +36,12 @@ jobs:
           
       - name: Run unit tests  
         run: npm test
-      
-      - name: Current version
-        run: |
-          CURRENT_VERSION=$(curl -s -u "${{secrets.SONAR_TOKEN }}:" "https://sonarcloud.io/api/project_analyses/search?project=jagadish10_githubActions&pageSize=1" | jq -r '.analyses[0].projectVersion')
-          echo $CURRENT_VERSION
-
-      - name: Sonar cloud analysis 
-        run: |
-          sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
-          docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli
-      # - name: SonarCloud Scan
-      #   uses: SonarSource/sonarcloud-github-action@master
-      #   with:
-      #     args: >
-      #       -Dsonar.projectVersion=1.0.2
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        #   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   if_merged:
     name: increase the project version in sonar and analyze
@@ -87,9 +75,12 @@ jobs:
           echo $UPDATED_VERSION
           echo "NEW_VERSION=$UPDATED_VERSION" >> $GITHUB_ENV
 
-      - name: Sonar cloud analysis 
-        run: |
-          echo "new version ---> ${{env.NEW_VERSION}}"
-          sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
-          docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli -Dsonar.projectVersion=${{env.NEW_VERSION}}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectVersion=1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
