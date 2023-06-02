@@ -13,6 +13,6 @@ describe('multiplication.js test ' , () => {
     it('number should be greater than 0', () => {
         let res = multiplication.mul(0,0);
         expect(res).to.exist;
-        expect(res).to.equal("numbers should not be zero");
+        expect(res).to.equal(0);
     });
 })

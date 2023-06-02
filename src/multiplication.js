@@ -1,6 +1,6 @@
 exports.mul =(a,b) => {
     if(a==0 && b == 0) {
-        return "numbers should not be zero"
+        return 0;
     }
     else {
         let c = a*b;
