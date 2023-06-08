@@ -1,5 +1,5 @@
-from jira import JIRA
-from confluence import Confluence
+from atlassian import JIRA
+from atlassian import Confluence
 
 # Initialize Jira connection
 jira = JIRA(server='https://taylorfrancis.atlassian.net', basic_auth=('jagadish.gowda@taylorandfrancis.com', 'ATATT3xFfGF0o5NlT9tUdmXIeNBDYtlYrW8pQSrl9FQYrbIQZboCqecHF4o0bMTqeBu4ZFuB-aN4V4XhqDEVzVaqkvgESDLkTik3IHLTDwtLRWkstMCYNmMTFZ3MSD2Dt_NMu6IpCwdKwYU8qagoXASFfQrm48sTFCpxKY6rl9JptfOckaDLH_8=BB55FCDE'))
