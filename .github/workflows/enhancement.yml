@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install jira
 
+      - name: Install dependencies
+        run: pip install confluence
+
       - name: Execute script
         run: |
           python .github/scripts/jira_to_confluence.py
