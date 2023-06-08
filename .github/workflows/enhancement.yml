@@ -1,0 +1,35 @@
+name: Jira to Confluence
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Please provide the confluence url here
+        required: true
+
+  push:
+    branches:
+      - main
+
+jobs:
+  jira_to_confluence:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Upgrade pip and setuptools
+        run: |
+          python -m pip install --upgrade pip setuptools
+
+      - name: Install dependencies
+        run: pip install jira confluence
+
+      - name: Execute script
+        run: |
+          python .github/scripts/jira_to_confluence.py
