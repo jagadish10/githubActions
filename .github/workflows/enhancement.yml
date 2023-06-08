@@ -28,7 +28,7 @@ jobs:
           python -m pip install --upgrade pip setuptools
 
       - name: Install dependencies
-        run: pip install atlassian-python-api confluence
+        run: pip install jira
 
       - name: Execute script
         run: |
