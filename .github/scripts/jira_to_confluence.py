@@ -2,7 +2,7 @@ from atlassian import Jira
 from atlassian import Confluence
 
 # Initialize Jira connection
-jira = Jira(url='https://taylorfrancis.atlassian.net', username='jagadish.gowda@taylorandfrancis.com', password='ATATT3xFfGF0o5NlT9tUdmXIeNBDYtlYrW8pQSrl9FQYrbIQZboCqecHF4o0bMTqeBu4ZFuB-aN4V4XhqDEVzVaqkvgESDLkTik3IHLTDwtLRWkstMCYNmMTFZ3MSD2Dt_NMu6IpCwdKwYU8qagoXASFfQrm48sTFCpxKY6rl9JptfOckaDLH_8=BB55FCDE')
+jira = Jira(url='https://taylorfrancis.atlassian.net', username='jagadish.gowda@taylorandfrancis.com', password='jaga@123')
 
 # Initialize Confluence connection
 confluence = Confluence(url='https://taylorfrancis.atlassian.net', username='jagadish.gowda@taylorandfrancis.com', password='ATATT3xFfGF0o5NlT9tUdmXIeNBDYtlYrW8pQSrl9FQYrbIQZboCqecHF4o0bMTqeBu4ZFuB-aN4V4XhqDEVzVaqkvgESDLkTik3IHLTDwtLRWkstMCYNmMTFZ3MSD2Dt_NMu6IpCwdKwYU8qagoXASFfQrm48sTFCpxKY6rl9JptfOckaDLH_8=BB55FCDE')
