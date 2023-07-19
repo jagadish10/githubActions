@@ -45,7 +45,7 @@ jobs:
 
   if_merged:
     name: increase the project version in sonar and analyze
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     strategy:
       matrix:
         node-version: [14.x]
