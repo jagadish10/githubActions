@@ -76,7 +76,7 @@ jobs:
           echo $UPDATED_VERSION
           echo "NEW_VERSION=$UPDATED_VERSION" >> $GITHUB_ENV
 
-      - name: SonarCloud Scan
+      - name: SonarCloud Scan Analysis
         run: |
           sed -i -e "s|SF:$(pwd)|SF:.|g" coverage/lcov.info
           docker run --rm -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli -Dsonar.projectVersion=${{env.NEW_VERSION}}
