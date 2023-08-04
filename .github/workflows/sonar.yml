@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install The Dependencies
+      - name: Install The Dependencies 
         run: npm install
           
       - name: Run unit tests  
@@ -45,7 +45,7 @@ jobs:
 
   if_merged:
     name: increase the project version in sonar and analyze
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    if: github.event.pull_request.merged == true
     strategy:
       matrix:
         node-version: [14.x]
