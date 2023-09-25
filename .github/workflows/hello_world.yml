@@ -6,11 +6,14 @@ on:
   pull_request:
     branches:
       - 'main'
-  create:
-    tags:
-      - "dev/**"
-      - "uat/**"
-      - "release/**"
+  workflow_dispatch:
+    inputs:
+      choice:
+        type: choice
+        description: Do you also want to deploy in dev
+        options:
+        - false
+        - true
 
 jobs:
   hello:
@@ -27,10 +30,24 @@ jobs:
       - name: Unit tests
         run: npm run test
 
-      - name: SonarCloud Scan
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  teamsNotification-hello-and-push:
+    needs: hello
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Microsoft Teams Notification on Build and Push to ECR is Success
+        if: ${{ needs.hello.result == 'success' &&  github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo "Send Microsoft Teams Notification on Build and Push to ECR is Success"
+
+      - name: Send Microsoft Teams Notification on Build Success
+        if: ${{ needs.hello.result == 'success' && (github.event_name == 'push' || github.event_name == 'pull_request')}}
+        run: |
+          echo "Send Microsoft Teams Notification on Build Success"
+
+      - name: Send Microsoft Teams Notification on Build Failure
+        if: ${{ needs.hello.result == 'failure' }}
+        run: |
+          echo "failure"
 
