@@ -13,7 +13,7 @@ let jsonData = {
                 "minItems": 5,
                 "maxItems": 10,
                 "properties": {
-                    "type": "JEL"
+                    "type": "JEL1"
                 },
                 "label": "classifications"
             },
