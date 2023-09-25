@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'test-notification12'
   pull_request:
     branches:
       - 'main'
